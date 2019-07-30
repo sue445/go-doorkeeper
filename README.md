@@ -1,2 +1,2 @@
 # go-doorkeeper
-Doorkeeper API client for Go
+[Doorkeeper API](https://www.doorkeeper.jp/developer/api) client for Go
