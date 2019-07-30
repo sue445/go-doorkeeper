@@ -1,0 +1,20 @@
+{
+  "event": {
+    "title": "900K records per second with Ruby, Java, and JRuby",
+    "id": 28319,
+    "starts_at": "2015-08-13T10:00:00.000Z",
+    "ends_at": "2015-08-13T13:00:00.000Z",
+    "venue_name": "VOYAGE GROUP",
+    "address": "東京都渋谷区神泉町8-16 渋谷ファーストプレイス8F",
+    "lat": "35.6553195",
+    "long": "139.6937795",
+    "published_at": "2015-07-13T23:48:29.463Z",
+    "updated_at": "2018-05-11T00:07:44.270Z",
+    "group": 24,
+    "description": "<h2>アジェンダ</h2>\n\n<h3><small>19:00 〜 19:45</small> 会場</h3>\n\n<p>飲み物を片手にRubyist同士の交流を深めて下さい。</p>\n\n<h3><small>19:45 〜 20:15</small> 900K records per second with Ruby, Java, and JRuby<small> <a href=\"https://twitter.com/nahi\" rel=\"nofollow\">中村浩士、なひ</a></small></h3>\n\n<p><a href=\"http://TreasureData.com\" rel=\"nofollow\">トレジャーデータ</a>はクラウド型のデータマネジメントサービスです。分析対象データとして、2015年7月当初時点で16兆レコードを格納しており、さらに毎秒90万レコードの勢いで増加していっています。このデータを処理するため、我々はRuby、Java、JRubyそして各種OSSコンポーネントを活用しています。この発表ではまずそのシステムアーキテクチャを紹介し、続いて堅牢、高性能かつ柔軟なデータマネジメント基盤を構築するために、これらプログラミング言語とOSSコンポーネントをどのように利用しているかについて説明します。</p>\n\n<h4>プロフィール</h4>\n\n<p>トレジャーデータ株式会社ソフトウェアエンジニア、OSS開発者、CRubyおよびJRubyコミッタ、情報セキュリティスペシャリスト</p>\n\n<h3><small>20:15 〜 22:00</small> オープンネットワーク</h3>\n\n<p>参加者同士で当日のプレゼンやRubyに関することについてご歓談下さい。</p>\n\n<h2>会場の注意</h2>\n\n<ul>\n<li>19時以降、正面玄関は外からは開きません。中から人が出てくるのを待てば、入館できます。</li>\n<li>21時以降、正面玄関はロックされてしまいますので、21時より前に到着するようにして下さい。</li>\n</ul>",
+    "public_url": "https://trbmeetup.doorkeeper.jp/events/28319",
+    "participants": 48,
+    "waitlisted": 0,
+    "ticket_limit": 50
+  }
+}
