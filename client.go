@@ -12,6 +12,7 @@ const (
 	baseURL      = "https://api.doorkeeper.jp"
 	timeFormat   = "2006-01-02T15:04:05Z"
 	timeFormatMs = "2006-01-02T15:04:05.999Z"
+	dateFormat   = "2006-01-02"
 )
 
 // A Client manages communication with the Doorkeeper API
@@ -26,6 +27,40 @@ func NewClient(accessToken string) *Client {
 	userAgent := fmt.Sprintf("go-doorkeeper/%s (+https://github.com/sue445/go-doorkeeper)", Version)
 
 	return &Client{accessToken: accessToken, UserAgent: userAgent, client: &http.Client{}}
+}
+
+// GetEvents returns events
+func (c *Client) GetEvents(params *GetEventsParams) ([]*Event, *RateLimit, error) {
+	return c.getEvents("/events", params)
+}
+
+func (c *Client) getEvents(path string, params *GetEventsParams) ([]*Event, *RateLimit, error) {
+	body, rateLimit, err := c.get(path, params.toMap())
+
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var res []rawGetEventResponse
+	err = json.Unmarshal(body, &res)
+
+	if err != nil {
+		return nil, nil, err
+	}
+
+	events := []*Event{}
+
+	for _, e := range res {
+		event, err := e.Event.toEvent()
+
+		if err != nil {
+			return nil, nil, err
+		}
+
+		events = append(events, event)
+	}
+
+	return events, rateLimit, nil
 }
 
 type rawGetEventResponse struct {
