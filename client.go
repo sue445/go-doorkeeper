@@ -72,14 +72,14 @@ func (c *Client) GetGroup(groupName string, options ...OptionFunc) (*Group, *Rat
 		return nil, nil, err
 	}
 
-	var rawGroup rawGetGroupResponse
-	err = json.Unmarshal(body, &rawGroup)
+	var res rawGetGroupResponse
+	err = json.Unmarshal(body, &res)
 
 	if err != nil {
 		return nil, nil, err
 	}
 
-	return &rawGroup.Group, rateLimit, nil
+	return &res.Group, rateLimit, nil
 }
 
 func (c *Client) get(path string, params map[string]string) ([]byte, *RateLimit, error) {
