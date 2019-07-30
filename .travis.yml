@@ -1,0 +1,25 @@
+language: go
+sudo: false
+go:
+  - "1.11"
+  - "1.12"
+  - tip
+env:
+  - GO111MODULE=on
+before_install:
+  - go get -u golang.org/x/lint/golint
+script:
+  - make test
+  - make testrace
+  - "! gofmt -d . | grep '^'"
+  - make vet
+  - make lint
+matrix:
+  allow_failures:
+    - go: tip
+branches:
+  only:
+    - master
+notifications:
+  slack:
+    secure: DCi8SKChZ7uUO2TLTFIA0rdaG5VomnYx/YjAvJBqQewa9XrZJWN9qoyoaqlF1ONV6tZQCjAc4ZKnHkR2AzsvztDULPAuUzBclGArzyEMNvNM5TN5kgpgATccGDoy0Lh0DpwqiHD/NiHY/RKX8ubbGeWVLktczC5sZMQGAmFOUrUe0Zto6+akoTN83zs7igBgvh9X/O1wQbHk0X/zMSOTpE2UH/E+pHXSB9N4xZ23wvxoAnThNHYnN9U5Qky1zfcevP1wFbHmQI6LfppuzULyvUxrM8F7LUWQfWi/xI+q70G3cQjdmwAD38gB9UIgTuoiz+xg8bcRYibXOx9HQoE7KKkSlKyFdFrYIlzSGZX0ICZRHq8/0xsJu5aa+iywJB8/uzH+eTPwW3ITxzJxUSa0OIwHicky7z71DEIttUcejaf/W4Zi+Ad2xDukTXUQt65+JImp8TKdM5vbu5inm7zayEqgbsl4+W32c12yeCzTJWU+N17KIum8Gw1/H1HYojhr05dLRolew8hn40+2AFXbdV5Jjv6j5JWlskxIT6ElyHp5hJEgtDjrfAjM8QgYF8JM5+foTMJVs6YfEfGFgK5QtNQvUQqdKzq1BmlhPOGbV/itALgo2oKA7psZK2yw3pIU8NBaOjoJjb8pIOsc4dhVn1vqxLoO+216NU6dXgEkGjM=
