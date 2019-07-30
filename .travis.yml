@@ -5,15 +5,24 @@ go:
   - "1.12"
   - tip
 env:
-  - GO111MODULE=on
+  global:
+    - GO111MODULE=on
+    - TEST_ARGS="-coverprofile c.out"
+    - CC_TEST_REPORTER_ID=619272f3f7383286fe233eae21131e3e50557de3ce00ba0f257e3fb1871b57a3
 before_install:
   - go get -u golang.org/x/lint/golint
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 script:
   - make test
   - make testrace
   - "! gofmt -d . | grep '^'"
   - make vet
   - make lint
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 matrix:
   allow_failures:
     - go: tip
