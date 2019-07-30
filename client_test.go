@@ -26,7 +26,7 @@ func TestClient_GetGroup(t *testing.T) {
 
 	httpmock.RegisterResponder("GET", "https://api.doorkeeper.jp/groups/trbmeetup",
 		func(req *http.Request) (*http.Response, error) {
-			resp := httpmock.NewStringResponse(200, readTestData(filepath.Join("testdata", "GetGroup-ja.json")))
+			resp := httpmock.NewStringResponse(200, readTestData(filepath.Join("testdata", "group-ja.json")))
 			resp.Header.Set("X-Ratelimit", `{"name":"authenticated API","period":300,"limit":300,"remaining":299,"until":"2019-07-29T15:15:00Z"}`)
 			return resp, nil
 		},
@@ -64,7 +64,7 @@ func TestClient_GetGroup_WithLocale(t *testing.T) {
 
 	httpmock.RegisterResponder("GET", "https://api.doorkeeper.jp/groups/trbmeetup?locale=en",
 		func(req *http.Request) (*http.Response, error) {
-			resp := httpmock.NewStringResponse(200, readTestData(filepath.Join("testdata", "GetGroup-en.json")))
+			resp := httpmock.NewStringResponse(200, readTestData(filepath.Join("testdata", "group-en.json")))
 			resp.Header.Set("X-Ratelimit", `{"name":"authenticated API","period":300,"limit":300,"remaining":299,"until":"2019-07-29T15:15:00Z"}`)
 			return resp, nil
 		},
