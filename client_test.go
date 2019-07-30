@@ -20,6 +20,10 @@ func readTestData(filename string) string {
 	return string(buf)
 }
 
+func fp(f float64) *float64 {
+	return &f
+}
+
 func TestClient_GetEvent(t *testing.T) {
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
@@ -44,8 +48,8 @@ func TestClient_GetEvent(t *testing.T) {
 		EndsAt:       time.Date(2015, 8, 13, 13, 0, 0, 0, time.UTC),
 		VenueName:    "VOYAGE GROUP",
 		Address:      "東京都渋谷区神泉町8-16 渋谷ファーストプレイス8F",
-		Lat:          35.6553195,
-		Long:         139.6937795,
+		Lat:          fp(35.6553195),
+		Long:         fp(139.6937795),
 		PublishedAt:  time.Date(2015, 7, 13, 23, 48, 29, 463000000, time.UTC),
 		UpdatedAt:    time.Date(2018, 5, 11, 0, 7, 44, 270000000, time.UTC),
 		Group:        24,
@@ -91,8 +95,8 @@ func TestClient_GetEvent_WithLocale(t *testing.T) {
 		EndsAt:       time.Date(2015, 8, 13, 13, 0, 0, 0, time.UTC),
 		VenueName:    "VOYAGE GROUP",
 		Address:      "東京都渋谷区神泉町8-16 渋谷ファーストプレイス8F",
-		Lat:          35.6553195,
-		Long:         139.6937795,
+		Lat:          fp(35.6553195),
+		Long:         fp(139.6937795),
 		PublishedAt:  time.Date(2015, 7, 13, 23, 48, 29, 463000000, time.UTC),
 		UpdatedAt:    time.Date(2018, 5, 11, 0, 7, 44, 270000000, time.UTC),
 		Group:        24,

@@ -13,8 +13,8 @@ type Event struct {
 	EndsAt       time.Time
 	VenueName    string
 	Address      string
-	Lat          float64
-	Long         float64
+	Lat          *float64
+	Long         *float64
 	PublishedAt  time.Time
 	UpdatedAt    time.Time
 	Group        int
@@ -69,27 +69,13 @@ func (e *rawEvent) toEvent() (*Event, error) {
 		return nil, err
 	}
 
-	lat, err := strconv.ParseFloat(e.Lat, 64)
-
-	if err != nil {
-		return nil, err
-	}
-
-	long, err := strconv.ParseFloat(e.Long, 64)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return &Event{
+	event := &Event{
 		Title:        e.Title,
 		ID:           e.ID,
 		StartsAt:     startsAt,
 		EndsAt:       endsAt,
 		VenueName:    e.VenueName,
 		Address:      e.Address,
-		Lat:          lat,
-		Long:         long,
 		PublishedAt:  publishedAt,
 		UpdatedAt:    updatedAt,
 		Group:        e.Group,
@@ -98,5 +84,27 @@ func (e *rawEvent) toEvent() (*Event, error) {
 		Participants: e.Participants,
 		Waitlisted:   e.Waitlisted,
 		TicketLimit:  e.TicketLimit,
-	}, nil
+	}
+
+	if e.Lat != "" {
+		lat, err := strconv.ParseFloat(e.Lat, 64)
+
+		if err != nil {
+			return nil, err
+		}
+
+		event.Lat = &lat
+	}
+
+	if e.Long != "" {
+		long, err := strconv.ParseFloat(e.Long, 64)
+
+		if err != nil {
+			return nil, err
+		}
+
+		event.Long = &long
+	}
+
+	return event, nil
 }
