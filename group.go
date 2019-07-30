@@ -10,7 +10,3 @@ type Group struct {
 	PublicURL    string `json:"public_url"`
 	MembersCount int    `json:"members_count"`
 }
-
-type rawGroup struct {
-	Group Group `json:"group"`
-}

@@ -27,6 +27,10 @@ func NewClient(accessToken string) *Client {
 	return &Client{accessToken: accessToken, UserAgent: userAgent, client: &http.Client{}}
 }
 
+type rawGetGroupResponse struct {
+	Group Group `json:"group"`
+}
+
 // GetGroup returns a specific group
 func (c *Client) GetGroup(groupName string, options ...OptionFunc) (*Group, *RateLimit, error) {
 	params := optionsToParams(options)
@@ -37,7 +41,7 @@ func (c *Client) GetGroup(groupName string, options ...OptionFunc) (*Group, *Rat
 		return nil, nil, err
 	}
 
-	var rawGroup rawGroup
+	var rawGroup rawGetGroupResponse
 	err = json.Unmarshal(body, &rawGroup)
 
 	if err != nil {
