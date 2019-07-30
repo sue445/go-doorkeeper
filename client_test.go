@@ -76,6 +76,54 @@ func TestClient_GetEvents(t *testing.T) {
 	assert.Equal(t, wantRateLimit, rateLimit)
 }
 
+func TestClient_GetGroupEvents(t *testing.T) {
+	httpmock.Activate()
+	defer httpmock.DeactivateAndReset()
+
+	httpmock.RegisterResponder("GET", "https://api.doorkeeper.jp/groups/trbmeetup/events?page=1",
+		func(req *http.Request) (*http.Response, error) {
+			resp := httpmock.NewStringResponse(200, readTestData(filepath.Join("testdata", "events.json")))
+			resp.Header.Set("X-Ratelimit", `{"name":"authenticated API","period":300,"limit":300,"remaining":299,"until":"2019-07-29T15:15:00Z"}`)
+			return resp, nil
+		},
+	)
+
+	c := NewClient("DOORKEEPER_ACCESS_TOKEN")
+	events, rateLimit, err := c.GetGroupEvents("trbmeetup", &GetEventsParams{Page: 1})
+
+	assert.NoError(t, err)
+
+	wantEvent := &Event{
+		Title:        "900K records per second with Ruby, Java, and JRuby",
+		ID:           28319,
+		StartsAt:     time.Date(2015, 8, 13, 10, 0, 0, 0, time.UTC),
+		EndsAt:       time.Date(2015, 8, 13, 13, 0, 0, 0, time.UTC),
+		VenueName:    "VOYAGE GROUP",
+		Address:      "東京都渋谷区神泉町8-16 渋谷ファーストプレイス8F",
+		Lat:          fp(35.6553195),
+		Long:         fp(139.6937795),
+		PublishedAt:  time.Date(2015, 7, 13, 23, 48, 29, 463000000, time.UTC),
+		UpdatedAt:    time.Date(2018, 5, 11, 0, 7, 44, 270000000, time.UTC),
+		Group:        24,
+		Description:  "<h2>アジェンダ</h2>\n\n<h3><small>19:00 〜 19:45</small> 会場</h3>\n\n<p>飲み物を片手にRubyist同士の交流を深めて下さい。</p>\n\n<h3><small>19:45 〜 20:15</small> 900K records per second with Ruby, Java, and JRuby<small> <a href=\"https://twitter.com/nahi\" rel=\"nofollow\">中村浩士、なひ</a></small></h3>\n\n<p><a href=\"http://TreasureData.com\" rel=\"nofollow\">トレジャーデータ</a>はクラウド型のデータマネジメントサービスです。分析対象データとして、2015年7月当初時点で16兆レコードを格納しており、さらに毎秒90万レコードの勢いで増加していっています。このデータを処理するため、我々はRuby、Java、JRubyそして各種OSSコンポーネントを活用しています。この発表ではまずそのシステムアーキテクチャを紹介し、続いて堅牢、高性能かつ柔軟なデータマネジメント基盤を構築するために、これらプログラミング言語とOSSコンポーネントをどのように利用しているかについて説明します。</p>\n\n<h4>プロフィール</h4>\n\n<p>トレジャーデータ株式会社ソフトウェアエンジニア、OSS開発者、CRubyおよびJRubyコミッタ、情報セキュリティスペシャリスト</p>\n\n<h3><small>20:15 〜 22:00</small> オープンネットワーク</h3>\n\n<p>参加者同士で当日のプレゼンやRubyに関することについてご歓談下さい。</p>\n\n<h2>会場の注意</h2>\n\n<ul>\n<li>19時以降、正面玄関は外からは開きません。中から人が出てくるのを待てば、入館できます。</li>\n<li>21時以降、正面玄関はロックされてしまいますので、21時より前に到着するようにして下さい。</li>\n</ul>",
+		PublicURL:    "https://trbmeetup.doorkeeper.jp/events/28319",
+		Participants: 48,
+		Waitlisted:   0,
+		TicketLimit:  50,
+	}
+	assert.Equal(t, 1, len(events))
+	assert.Equal(t, wantEvent, events[0])
+
+	wantRateLimit := &RateLimit{
+		Name:      "authenticated API",
+		Period:    300,
+		Limit:     300,
+		Remaining: 299,
+		Until:     time.Date(2019, 7, 29, 15, 15, 0, 0, time.UTC),
+	}
+	assert.Equal(t, wantRateLimit, rateLimit)
+}
+
 func TestClient_GetEvent(t *testing.T) {
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()

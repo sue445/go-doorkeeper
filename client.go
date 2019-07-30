@@ -34,6 +34,11 @@ func (c *Client) GetEvents(params *GetEventsParams) ([]*Event, *RateLimit, error
 	return c.getEvents("/events", params)
 }
 
+// GetGroupEvents returns group events
+func (c *Client) GetGroupEvents(groupName string, params *GetEventsParams) ([]*Event, *RateLimit, error) {
+	return c.getEvents(fmt.Sprintf("/groups/%s/events", groupName), params)
+}
+
 func (c *Client) getEvents(path string, params *GetEventsParams) ([]*Event, *RateLimit, error) {
 	body, rateLimit, err := c.get(path, params.toMap())
 
