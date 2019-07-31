@@ -1,3 +1,5 @@
+PACKAGE := github.com/sue445/go-doorkeeper
+
 .DEFAULT_GOAL := test
 
 bin/$(NAME): $(SRCS)
@@ -5,11 +7,11 @@ bin/$(NAME): $(SRCS)
 
 .PHONY: test
 test:
-	go test -count=1 $${TEST_ARGS} ./...
+	go test -count=1 $${TEST_ARGS} $(PACKAGE)
 
 .PHONY: testrace
 testrace:
-	go test -count=1 $${TEST_ARGS} -race ./...
+	go test -count=1 $${TEST_ARGS} -race $(PACKAGE)
 
 .PHONY: fmt
 fmt:
@@ -17,8 +19,8 @@ fmt:
 
 .PHONY: lint
 lint:
-	golint -set_exit_status ./...
+	golint -set_exit_status $(PACKAGE)
 
 .PHONY: vet
 vet:
-	go vet ./...
+	go vet $(PACKAGE)
