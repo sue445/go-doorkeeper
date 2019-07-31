@@ -293,3 +293,40 @@ func TestClient_GetGroup_WithLocale(t *testing.T) {
 	}
 	assert.Equal(t, wantRateLimit, rateLimit)
 }
+
+func TestClient_buildURL(t *testing.T) {
+	c := NewClient("DOORKEEPER_ACCESS_TOKEN")
+
+	type args struct {
+		path   string
+		params map[string]string
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{
+			name: "empty params",
+			args: args{
+				path:   "/events",
+				params: map[string]string{},
+			},
+			want: "https://api.doorkeeper.jp/events",
+		},
+		{
+			name: "sort and since and until",
+			args: args{
+				path:   "/groups/trbmeetup/events",
+				params: map[string]string{"sort": "published_at", "since": "2015-03-03", "until": "2015-08-30"},
+			},
+			want: "https://api.doorkeeper.jp/groups/trbmeetup/events?since=2015-03-03&sort=published_at&until=2015-08-30",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := c.buildURL(tt.args.path, tt.args.params)
+			assert.Equal(t, tt.want, got)
+		})
+	}
+}
