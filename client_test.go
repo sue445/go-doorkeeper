@@ -294,6 +294,26 @@ func TestClient_GetGroup_WithLocale(t *testing.T) {
 	assert.Equal(t, wantRateLimit, rateLimit)
 }
 
+func TestClient_GetGroup_NotFound(t *testing.T) {
+	httpmock.Activate()
+	defer httpmock.DeactivateAndReset()
+
+	httpmock.RegisterResponder("GET", "https://api.doorkeeper.jp/groups/not-found",
+		func(req *http.Request) (*http.Response, error) {
+			resp := httpmock.NewStringResponse(404, "")
+			resp.Header.Set("X-Ratelimit", `{"name":"authenticated API","period":300,"limit":300,"remaining":299,"until":"2019-07-29T15:15:00Z"}`)
+			return resp, nil
+		},
+	)
+
+	c := NewClient("DOORKEEPER_ACCESS_TOKEN")
+	group, rateLimit, err := c.GetGroup("not-found")
+
+	assert.EqualError(t, err, "404")
+	assert.Nil(t, group)
+	assert.Nil(t, rateLimit)
+}
+
 func TestClient_buildURL(t *testing.T) {
 	c := NewClient("DOORKEEPER_ACCESS_TOKEN")
 
