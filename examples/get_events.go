@@ -13,7 +13,7 @@ func main() {
 	}
 
 	client := doorkeeper.NewClient(accessToken)
-	events, rateLimit, err := client.GetEvents(&doorkeeper.GetEventsParams{})
+	events, rateLimit, err := client.GetEvents(&doorkeeper.GetEventsParams{Sort: doorkeeper.SortByPublishedAt})
 
 	if err != nil {
 		panic(fmt.Sprintf("err=%+v", err))
