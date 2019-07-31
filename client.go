@@ -2,6 +2,7 @@ package doorkeeper
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -140,6 +141,10 @@ func (c *Client) get(path string, params map[string]string) ([]byte, *RateLimit,
 	}
 
 	defer resp.Body.Close()
+
+	if resp.StatusCode < 200 || resp.StatusCode >= 400 {
+		return nil, nil, errors.New(resp.Status)
+	}
 
 	xRateLimit := resp.Header.Get("X-Ratelimit")
 	rawRateLimit, err := newRawRateLimitFromJSON(xRateLimit)
