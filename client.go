@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"sort"
 	"strings"
 )
 
@@ -167,9 +168,10 @@ func (c *Client) buildURL(path string, params map[string]string) string {
 		return baseURL + path
 	}
 
-	query := make([]string, len(params))
+	var query []string
 	for k := range params {
 		query = append(query, k+"="+params[k])
 	}
+	sort.Strings(query)
 	return baseURL + path + "?" + strings.Join(query, "&")
 }
