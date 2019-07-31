@@ -5,43 +5,11 @@ import (
 	"time"
 )
 
-// Sort represents sort type of events API
-type Sort int
-
-const (
-	// Nothing represents no sort
-	Nothing Sort = iota
-
-	// PublishedAt represents sort by published_at
-	PublishedAt
-
-	// StartsAt represents sort by starts_at
-	StartsAt
-
-	// UpdatedAt represents sort by updated_at
-	UpdatedAt
-)
-
-func (s Sort) String() string {
-	switch s {
-	case PublishedAt:
-		return "published_at"
-	case StartsAt:
-		return "starts_at"
-	case UpdatedAt:
-		return "updated_at"
-	case Nothing:
-		return ""
-	default:
-		return ""
-	}
-}
-
 // GetEventsParams manages params of GetEvents
 type GetEventsParams struct {
 	Page     int
 	Locale   string
-	Sort     Sort
+	Sort     SortEnum
 	Since    *time.Time
 	Until    *time.Time
 	Query    string
@@ -59,8 +27,8 @@ func (p *GetEventsParams) toMap() map[string]string {
 		params["locale"] = p.Locale
 	}
 
-	if p.Sort.String() != "" {
-		params["sort"] = p.Sort.String()
+	if p.Sort.GetValue() != "" {
+		params["sort"] = p.Sort.GetValue()
 	}
 
 	if p.Since != nil {
