@@ -1,4 +1,5 @@
 PACKAGE := github.com/sue445/go-doorkeeper
+VERSION  := $(shell cat version.go | grep 'Version = ' | sed -E 's/^.*Version = "(.+)".*/\1/g')
 
 .DEFAULT_GOAL := test
 
@@ -24,3 +25,12 @@ lint:
 .PHONY: vet
 vet:
 	go vet $(PACKAGE)
+
+.PHONY: tag
+tag:
+	git tag -a $(VERSION) -m "Release $(VERSION)"
+	git push --tags
+
+.PHONY: release
+release: tag
+	git push origin master
