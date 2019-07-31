@@ -1,5 +1,11 @@
 ## Unreleased
-[full changelog](http://github.com/sue445/go-doorkeeper/compare/v0.1.2...master)
+[full changelog](http://github.com/sue445/go-doorkeeper/compare/v0.1.3...master)
+
+## v0.1.3
+[full changelog](http://github.com/sue445/go-doorkeeper/compare/v0.1.2...v0.1.3)
+
+* Fixed. `unexpected end of JSON input` when API is failed
+  * https://github.com/sue445/go-doorkeeper/pull/12
 
 ## v0.1.2
 [full changelog](http://github.com/sue445/go-doorkeeper/compare/v0.1.1...v0.1.2)
