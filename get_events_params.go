@@ -1,6 +1,7 @@
 package doorkeeper
 
 import (
+	"net/url"
 	"strconv"
 	"time"
 )
@@ -16,36 +17,36 @@ type GetEventsParams struct {
 	Callback string
 }
 
-func (p *GetEventsParams) toMap() map[string]string {
-	params := map[string]string{}
+func (p *GetEventsParams) toValues() url.Values {
+	v := url.Values{}
 
 	if p.Page > 0 {
-		params["page"] = strconv.Itoa(p.Page)
+		v.Set("page", strconv.Itoa(p.Page))
 	}
 
 	if p.Locale != "" {
-		params["locale"] = p.Locale
+		v.Set("locale", p.Locale)
 	}
 
 	if p.Sort.GetValue() != "" {
-		params["sort"] = p.Sort.GetValue()
+		v.Set("sort", p.Sort.GetValue())
 	}
 
 	if p.Since != nil {
-		params["since"] = p.Since.Format(dateFormat)
+		v.Set("since", p.Since.Format(dateFormat))
 	}
 
 	if p.Until != nil {
-		params["until"] = p.Until.Format(dateFormat)
+		v.Set("until", p.Until.Format(dateFormat))
 	}
 
 	if p.Query != "" {
-		params["q"] = p.Query
+		v.Set("q", p.Query)
 	}
 
 	if p.Callback != "" {
-		params["callback"] = p.Callback
+		v.Set("callback", p.Callback)
 	}
 
-	return params
+	return v
 }

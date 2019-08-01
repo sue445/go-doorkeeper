@@ -2,6 +2,7 @@ package doorkeeper
 
 import (
 	"github.com/stretchr/testify/assert"
+	"net/url"
 	"testing"
 	"time"
 )
@@ -19,10 +20,10 @@ func TestGetEventsParams_toMap(t *testing.T) {
 	tests := []struct {
 		name   string
 		fields fields
-		want   map[string]string
+		want   url.Values
 	}{
 		{
-			name: "full params",
+			name: "full values",
 			fields: fields{
 				Page:     1,
 				Locale:   "en",
@@ -32,20 +33,20 @@ func TestGetEventsParams_toMap(t *testing.T) {
 				Query:    "test",
 				Callback: "func",
 			},
-			want: map[string]string{
-				"page":     "1",
-				"locale":   "en",
-				"sort":     "updated_at",
-				"since":    "2015-08-13",
-				"until":    "2015-09-13",
-				"q":        "test",
-				"callback": "func",
+			want: url.Values{
+				"page":     []string{"1"},
+				"locale":   []string{"en"},
+				"sort":     []string{"updated_at"},
+				"since":    []string{"2015-08-13"},
+				"until":    []string{"2015-09-13"},
+				"q":        []string{"test"},
+				"callback": []string{"func"},
 			},
 		},
 		{
-			name:   "no params",
+			name:   "no values",
 			fields: fields{},
-			want:   map[string]string{},
+			want:   url.Values{},
 		},
 	}
 	for _, tt := range tests {
@@ -60,7 +61,7 @@ func TestGetEventsParams_toMap(t *testing.T) {
 				Callback: tt.fields.Callback,
 			}
 
-			got := p.toMap()
+			got := p.toValues()
 			assert.Equal(t, tt.want, got)
 		})
 	}
