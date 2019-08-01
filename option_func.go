@@ -1,25 +1,27 @@
 package doorkeeper
 
+import "net/url"
+
 // OptionFunc represents base optional param
-type OptionFunc func(map[string]string)
+type OptionFunc func(url.Values)
 
 // WithLocale pass specific locale
 func WithLocale(locale string) OptionFunc {
-	return func(params map[string]string) {
-		params["locale"] = locale
+	return func(values url.Values) {
+		values.Add("locale", locale)
 	}
 }
 
-func optionsToParams(options []OptionFunc) map[string]string {
-	params := map[string]string{}
+func optionsToValues(options []OptionFunc) url.Values {
+	values := url.Values{}
 
 	for _, fn := range options {
 		if fn == nil {
 			continue
 		}
 
-		fn(params)
+		fn(values)
 	}
 
-	return params
+	return values
 }

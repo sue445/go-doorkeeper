@@ -5,6 +5,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 	"path/filepath"
 	"testing"
 	"time"
@@ -319,7 +320,7 @@ func TestClient_buildURL(t *testing.T) {
 
 	type args struct {
 		path   string
-		params map[string]string
+		values url.Values
 	}
 	tests := []struct {
 		name string
@@ -327,25 +328,30 @@ func TestClient_buildURL(t *testing.T) {
 		want string
 	}{
 		{
-			name: "empty params",
+			name: "empty values",
 			args: args{
 				path:   "/events",
-				params: map[string]string{},
+				values: url.Values{},
 			},
 			want: "https://api.doorkeeper.jp/events",
 		},
 		{
 			name: "sort and since and until",
 			args: args{
-				path:   "/groups/trbmeetup/events",
-				params: map[string]string{"sort": "published_at", "since": "2015-03-03", "until": "2015-08-30"},
+				path: "/groups/trbmeetup/events",
+				values: url.Values{
+					"sort":  []string{"published_at"},
+					"since": []string{"2015-03-03"},
+					"until": []string{"2015-08-30"},
+				},
 			},
 			want: "https://api.doorkeeper.jp/groups/trbmeetup/events?since=2015-03-03&sort=published_at&until=2015-08-30",
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := c.buildURL(tt.args.path, tt.args.params)
+			got, err := c.buildURL(tt.args.path, tt.args.values)
+			assert.NoError(t, err)
 			assert.Equal(t, tt.want, got)
 		})
 	}

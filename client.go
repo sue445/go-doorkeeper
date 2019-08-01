@@ -6,8 +6,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"sort"
-	"strings"
+	"net/url"
 )
 
 const (
@@ -42,7 +41,7 @@ func (c *Client) GetGroupEvents(groupName string, params *GetEventsParams) ([]*E
 }
 
 func (c *Client) getEvents(path string, params *GetEventsParams) ([]*Event, *RateLimit, error) {
-	body, rateLimit, err := c.get(path, params.toMap())
+	body, rateLimit, err := c.get(path, params.toValues())
 
 	if err != nil {
 		return nil, nil, err
@@ -76,9 +75,9 @@ type rawGetEventResponse struct {
 
 // GetEvent returns a specific event
 func (c *Client) GetEvent(eventID int, options ...OptionFunc) (*Event, *RateLimit, error) {
-	params := optionsToParams(options)
+	values := optionsToValues(options)
 
-	body, rateLimit, err := c.get(fmt.Sprintf("/events/%d", eventID), params)
+	body, rateLimit, err := c.get(fmt.Sprintf("/events/%d", eventID), values)
 
 	if err != nil {
 		return nil, nil, err
@@ -106,9 +105,9 @@ type rawGetGroupResponse struct {
 
 // GetGroup returns a specific group
 func (c *Client) GetGroup(groupName string, options ...OptionFunc) (*Group, *RateLimit, error) {
-	params := optionsToParams(options)
+	values := optionsToValues(options)
 
-	body, rateLimit, err := c.get("/groups/"+groupName, params)
+	body, rateLimit, err := c.get("/groups/"+groupName, values)
 
 	if err != nil {
 		return nil, nil, err
@@ -124,8 +123,14 @@ func (c *Client) GetGroup(groupName string, options ...OptionFunc) (*Group, *Rat
 	return &res.Group, rateLimit, nil
 }
 
-func (c *Client) get(path string, params map[string]string) ([]byte, *RateLimit, error) {
-	req, err := http.NewRequest("GET", c.buildURL(path, params), nil)
+func (c *Client) get(path string, values url.Values) ([]byte, *RateLimit, error) {
+	url, err := c.buildURL(path, values)
+
+	if err != nil {
+		return nil, nil, err
+	}
+
+	req, err := http.NewRequest("GET", url, nil)
 
 	if err != nil {
 		return nil, nil, err
@@ -168,15 +173,14 @@ func (c *Client) get(path string, params map[string]string) ([]byte, *RateLimit,
 	return body, rateLimit, nil
 }
 
-func (c *Client) buildURL(path string, params map[string]string) string {
-	if len(params) == 0 {
-		return baseURL + path
+func (c *Client) buildURL(path string, values url.Values) (string, error) {
+	u, err := url.Parse(baseURL + path)
+
+	if err != nil {
+		return "", err
 	}
 
-	var query []string
-	for k := range params {
-		query = append(query, k+"="+params[k])
-	}
-	sort.Strings(query)
-	return baseURL + path + "?" + strings.Join(query, "&")
+	u.RawQuery = values.Encode()
+
+	return u.String(), nil
 }
