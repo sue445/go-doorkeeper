@@ -11,10 +11,16 @@ func (s SortEnum) GetValue() string {
 }
 
 // SortByPublishedAt sort by published_at
-var SortByPublishedAt = SortEnum{value: "published_at"}
+func SortByPublishedAt() SortEnum {
+	return SortEnum{value: "published_at"}
+}
 
 // SortByStartsAt sort by starts_at
-var SortByStartsAt = SortEnum{value: "starts_at"}
+func SortByStartsAt() SortEnum {
+	return SortEnum{value: "starts_at"}
+}
 
 // SortByUpdatedAt sort by updated_at
-var SortByUpdatedAt = SortEnum{value: "updated_at"}
+func SortByUpdatedAt() SortEnum {
+	return SortEnum{value: "updated_at"}
+}

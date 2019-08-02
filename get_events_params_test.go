@@ -27,7 +27,7 @@ func TestGetEventsParams_toMap(t *testing.T) {
 			fields: fields{
 				Page:     1,
 				Locale:   "en",
-				Sort:     SortByUpdatedAt,
+				Sort:     SortByUpdatedAt(),
 				Since:    tp(time.Date(2015, 8, 13, 10, 0, 0, 0, time.UTC)),
 				Until:    tp(time.Date(2015, 9, 13, 10, 0, 0, 0, time.UTC)),
 				Query:    "test",
