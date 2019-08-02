@@ -26,7 +26,7 @@ func main() {
 	// List all featured events
 	events, rateLimit, err := client.GetEvents(&doorkeeper.GetEventsParams{})
 	// more options
-	events, rateLimit, err := client.GetEvents(&doorkeeper.GetEventsParams{Query: "golang", Sort: doorkeeper.SortByPublishedAt})
+	events, rateLimit, err := client.GetEvents(&doorkeeper.GetEventsParams{Query: "golang", Sort: doorkeeper.SortByPublishedAt()})
 
 	// List a community's events
 	groupName := "trbmeetup"
