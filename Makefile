@@ -1,4 +1,3 @@
-PACKAGE := github.com/sue445/go-doorkeeper
 VERSION  := $(shell cat version.go | grep 'Version = ' | sed -E 's/^.*Version = "(.+)".*/\1/g')
 
 .DEFAULT_GOAL := test
@@ -8,11 +7,11 @@ bin/$(NAME): $(SRCS)
 
 .PHONY: test
 test:
-	go test -count=1 $${TEST_ARGS} $(PACKAGE)
+	go test -count=1 $${TEST_ARGS}
 
 .PHONY: testrace
 testrace:
-	go test -count=1 $${TEST_ARGS} -race $(PACKAGE)
+	go test -count=1 $${TEST_ARGS} -race
 
 .PHONY: fmt
 fmt:
@@ -20,11 +19,11 @@ fmt:
 
 .PHONY: lint
 lint:
-	golint -set_exit_status $(PACKAGE)
+	golint -set_exit_status
 
 .PHONY: vet
 vet:
-	go vet $(PACKAGE)
+	go vet
 
 .PHONY: tag
 tag:
