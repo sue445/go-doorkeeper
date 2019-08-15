@@ -5,6 +5,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/fcf6115e2d1c43780cb8/maintainability)](https://codeclimate.com/github/sue445/go-doorkeeper/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/fcf6115e2d1c43780cb8/test_coverage)](https://codeclimate.com/github/sue445/go-doorkeeper/test_coverage)
 [![GoDoc](https://godoc.org/github.com/sue445/go-doorkeeper?status.svg)](https://godoc.org/github.com/sue445/go-doorkeeper)
+[![Go Report Card](https://goreportcard.com/badge/github.com/sue445/go-doorkeeper)](https://goreportcard.com/report/github.com/sue445/go-doorkeeper)
 
 ## Example
 ```go
