@@ -14,8 +14,8 @@ func Test_rawEvent_toEvent(t *testing.T) {
 		EndsAt       string
 		VenueName    string
 		Address      string
-		Lat          string
-		Long         string
+		Lat          *float64
+		Long         *float64
 		PublishedAt  string
 		UpdatedAt    string
 		Group        int
@@ -40,8 +40,8 @@ func Test_rawEvent_toEvent(t *testing.T) {
 				EndsAt:       "2015-08-13T13:00:00.000Z",
 				VenueName:    "VOYAGE GROUP",
 				Address:      "東京都渋谷区神泉町8-16 渋谷ファーストプレイス8F",
-				Lat:          "35.6553195",
-				Long:         "139.6937795",
+				Lat:          fp(35.6553195),
+				Long:         fp(139.6937795),
 				PublishedAt:  "2015-07-13T23:48:29.463Z",
 				UpdatedAt:    "2018-05-11T00:07:44.270Z",
 				Group:        24,
@@ -79,8 +79,8 @@ func Test_rawEvent_toEvent(t *testing.T) {
 				EndsAt:       "2015-08-13T13:00:00.000Z",
 				VenueName:    "VOYAGE GROUP",
 				Address:      "東京都渋谷区神泉町8-16 渋谷ファーストプレイス8F",
-				Lat:          "",
-				Long:         "",
+				Lat:          nil,
+				Long:         nil,
 				PublishedAt:  "2015-07-13T23:48:29.463Z",
 				UpdatedAt:    "2018-05-11T00:07:44.270Z",
 				Group:        24,

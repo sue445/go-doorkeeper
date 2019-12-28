@@ -1,7 +1,6 @@
 package doorkeeper
 
 import (
-	"strconv"
 	"time"
 )
 
@@ -26,22 +25,22 @@ type Event struct {
 }
 
 type rawEvent struct {
-	Title        string `json:"title"`
-	ID           int    `json:"id"`
-	StartsAt     string `json:"starts_at"`
-	EndsAt       string `json:"ends_at"`
-	VenueName    string `json:"venue_name"`
-	Address      string `json:"address"`
-	Lat          string `json:"lat"`
-	Long         string `json:"long"`
-	PublishedAt  string `json:"published_at"`
-	UpdatedAt    string `json:"updated_at"`
-	Group        int    `json:"group"`
-	Description  string `json:"description"`
-	PublicURL    string `json:"public_url"`
-	Participants int    `json:"participants"`
-	Waitlisted   int    `json:"waitlisted"`
-	TicketLimit  int    `json:"ticket_limit"`
+	Title        string   `json:"title"`
+	ID           int      `json:"id"`
+	StartsAt     string   `json:"starts_at"`
+	EndsAt       string   `json:"ends_at"`
+	VenueName    string   `json:"venue_name"`
+	Address      string   `json:"address"`
+	Lat          *float64 `json:"lat"`
+	Long         *float64 `json:"long"`
+	PublishedAt  string   `json:"published_at"`
+	UpdatedAt    string   `json:"updated_at"`
+	Group        int      `json:"group"`
+	Description  string   `json:"description"`
+	PublicURL    string   `json:"public_url"`
+	Participants int      `json:"participants"`
+	Waitlisted   int      `json:"waitlisted"`
+	TicketLimit  int      `json:"ticket_limit"`
 }
 
 func (e *rawEvent) toEvent() (*Event, error) {
@@ -84,26 +83,8 @@ func (e *rawEvent) toEvent() (*Event, error) {
 		Participants: e.Participants,
 		Waitlisted:   e.Waitlisted,
 		TicketLimit:  e.TicketLimit,
-	}
-
-	if e.Lat != "" {
-		lat, err := strconv.ParseFloat(e.Lat, 64)
-
-		if err != nil {
-			return nil, err
-		}
-
-		event.Lat = &lat
-	}
-
-	if e.Long != "" {
-		long, err := strconv.ParseFloat(e.Long, 64)
-
-		if err != nil {
-			return nil, err
-		}
-
-		event.Long = &long
+		Lat:          e.Lat,
+		Long:         e.Long,
 	}
 
 	return event, nil
