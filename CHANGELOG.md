@@ -1,5 +1,12 @@
 ## Unreleased
-[full changelog](http://github.com/sue445/go-doorkeeper/compare/v0.1.4...master)
+[full changelog](http://github.com/sue445/go-doorkeeper/compare/v0.1.5...master)
+
+## v0.1.5
+[full changelog](http://github.com/sue445/go-doorkeeper/compare/v0.1.4...v0.1.5)
+
+* Resolved. json cannot unmarshal number into Go struct field rawEvent.lat of type string
+  * https://github.com/sue445/go-doorkeeper/pull/18
+* Update dependencies
 
 ## v0.1.4
 [full changelog](http://github.com/sue445/go-doorkeeper/compare/v0.1.3...v0.1.4)
