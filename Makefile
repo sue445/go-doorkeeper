@@ -17,6 +17,10 @@ testrace:
 fmt:
 	go fmt ./...
 
+.PHONY: fmtci
+fmtci:
+	! gofmt -d . | grep '^'
+
 .PHONY: lint
 lint:
 	golint -set_exit_status
