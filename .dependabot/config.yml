@@ -10,3 +10,8 @@ update_configs:
 
     default_assignees:
       - sue445
+
+    automerged_updates:
+      - match:
+          dependency_name: "github.com/stretchr/testify"
+          update_type: "all"
