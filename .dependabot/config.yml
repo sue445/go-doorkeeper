@@ -15,3 +15,6 @@ update_configs:
       - match:
           dependency_name: "github.com/stretchr/testify"
           update_type: "all"
+      - match:
+          dependency_name: "github.com/jarcoal/httpmock"
+          update_type: "all"
