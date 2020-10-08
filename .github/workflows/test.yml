@@ -67,7 +67,7 @@ jobs:
           path-to-lcov: coverage.lcov
 
       - name: Slack Notification (not success)
-        uses: homoluctus/slatify@master
+        uses: lazy-actions/slatify@master
         if: "! success()"
         continue-on-error: true
         with:
@@ -112,7 +112,7 @@ jobs:
           make lint
 
       - name: Slack Notification (not success)
-        uses: homoluctus/slatify@master
+        uses: lazy-actions/slatify@master
         if: "! success()"
         continue-on-error: true
         with:
@@ -131,7 +131,7 @@ jobs:
 
     steps:
       - name: Slack Notification (success)
-        uses: homoluctus/slatify@master
+        uses: lazy-actions/slatify@master
         if: always()
         continue-on-error: true
         with:
