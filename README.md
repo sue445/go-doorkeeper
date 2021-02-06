@@ -1,6 +1,7 @@
 # go-doorkeeper
 [Doorkeeper API](https://www.doorkeeper.jp/developer/api) client for Go
 
+[![Latest Version](https://img.shields.io/github/v/tag/sue445/go-doorkeeper)](https://github.com/sue445/go-doorkeeper/tags)
 [![Build Status](https://github.com/sue445/go-doorkeeper/workflows/test/badge.svg?branch=master)](https://github.com/sue445/go-doorkeeper/actions?query=workflow%3Atest)
 [![Maintainability](https://api.codeclimate.com/v1/badges/fcf6115e2d1c43780cb8/maintainability)](https://codeclimate.com/github/sue445/go-doorkeeper/maintainability)
 [![Coverage Status](https://coveralls.io/repos/github/sue445/go-doorkeeper/badge.svg)](https://coveralls.io/github/sue445/go-doorkeeper)
