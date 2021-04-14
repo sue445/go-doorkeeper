@@ -1,5 +1,14 @@
 ## Unreleased
-[full changelog](http://github.com/sue445/go-doorkeeper/compare/v0.1.5...master)
+[full changelog](http://github.com/sue445/go-doorkeeper/compare/v0.1.6...master)
+
+## v0.1.6
+[full changelog](http://github.com/sue445/go-doorkeeper/compare/v0.1.5...v0.1.6)
+
+* Resolved `unexpected end of JSON input` when `X-Ratelimit` header isn't returned from Doorkeeper API
+  * https://github.com/sue445/go-doorkeeper/pull/48
+* Migrate to GitHub Actions
+  * https://github.com/sue445/go-doorkeeper/pull/19
+* Update dependencies
 
 ## v0.1.5
 [full changelog](http://github.com/sue445/go-doorkeeper/compare/v0.1.4...v0.1.5)
