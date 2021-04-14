@@ -151,7 +151,19 @@ func (c *Client) get(path string, values url.Values) ([]byte, *RateLimit, error)
 		return nil, nil, errors.New(resp.Status)
 	}
 
+	body, err := ioutil.ReadAll(resp.Body)
+
+	if err != nil {
+		return nil, nil, err
+	}
+
 	xRateLimit := resp.Header.Get("X-Ratelimit")
+
+	if xRateLimit == "" {
+		var rateLimit RateLimit
+		return body, &rateLimit, nil
+	}
+
 	rawRateLimit, err := newRawRateLimitFromJSON(xRateLimit)
 
 	if err != nil {
@@ -159,12 +171,6 @@ func (c *Client) get(path string, values url.Values) ([]byte, *RateLimit, error)
 	}
 
 	rateLimit, err := rawRateLimit.toRateLimit()
-
-	if err != nil {
-		return nil, nil, err
-	}
-
-	body, err := ioutil.ReadAll(resp.Body)
 
 	if err != nil {
 		return nil, nil, err

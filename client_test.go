@@ -295,6 +295,37 @@ func TestClient_GetGroup_WithLocale(t *testing.T) {
 	assert.Equal(t, wantRateLimit, rateLimit)
 }
 
+func TestClient_GetGroup_WithoutRateLimitHeader(t *testing.T) {
+	httpmock.Activate()
+	defer httpmock.DeactivateAndReset()
+
+	httpmock.RegisterResponder("GET", "https://api.doorkeeper.jp/groups/trbmeetup?locale=en",
+		func(req *http.Request) (*http.Response, error) {
+			resp := httpmock.NewStringResponse(200, readTestData(filepath.Join("testdata", "group-en.json")))
+			return resp, nil
+		},
+	)
+
+	c := NewClient("DOORKEEPER_ACCESS_TOKEN")
+	group, rateLimit, err := c.GetGroup("trbmeetup", WithLocale("en"))
+
+	assert.NoError(t, err)
+
+	wantGroup := &Group{
+		ID:           24,
+		Name:         "Tokyo Rubyist Meetup",
+		CountryCode:  "JP",
+		Logo:         "https://dzpp79ucibp5a.cloudfront.net/groups_logos/24_normal_1371637374_200px-Ruby_logo.png",
+		Description:  "<p>Tokyo Rubyist Meetup (trbmeetup) is an event that seeks to help bridge the Japan and international ruby and ruby on rails community. It will hold regular meetings where Japanese Rubyists can communicate with international Rubyists living in Tokyo. Meetings will be held in English, but anyone is encouraged to participate regardless of their ability.</p>\n",
+		PublicURL:    "https://trbmeetup.doorkeeper.jp/",
+		MembersCount: 2056,
+	}
+	assert.Equal(t, wantGroup, group)
+
+	wantRateLimit := &RateLimit{}
+	assert.Equal(t, wantRateLimit, rateLimit)
+}
+
 func TestClient_GetGroup_NotFound(t *testing.T) {
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
