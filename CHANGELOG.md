@@ -1,5 +1,11 @@
 ## Unreleased
-[full changelog](http://github.com/sue445/go-doorkeeper/compare/v0.1.6...master)
+[full changelog](http://github.com/sue445/go-doorkeeper/compare/v0.1.7...master)
+
+## v0.1.7
+[full changelog](http://github.com/sue445/go-doorkeeper/compare/v0.1.6...v0.1.7)
+
+* Wrap all errors with `errors.WithStack`
+  * https://github.com/sue445/go-doorkeeper/pull/49
 
 ## v0.1.6
 [full changelog](http://github.com/sue445/go-doorkeeper/compare/v0.1.5...v0.1.6)
