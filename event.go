@@ -1,6 +1,7 @@
 package doorkeeper
 
 import (
+	"github.com/pkg/errors"
 	"time"
 )
 
@@ -47,25 +48,25 @@ func (e *rawEvent) toEvent() (*Event, error) {
 	startsAt, err := time.Parse(timeFormatMs, e.StartsAt)
 
 	if err != nil {
-		return nil, err
+		return nil, errors.WithStack(err)
 	}
 
 	endsAt, err := time.Parse(timeFormatMs, e.EndsAt)
 
 	if err != nil {
-		return nil, err
+		return nil, errors.WithStack(err)
 	}
 
 	publishedAt, err := time.Parse(timeFormatMs, e.PublishedAt)
 
 	if err != nil {
-		return nil, err
+		return nil, errors.WithStack(err)
 	}
 
 	updatedAt, err := time.Parse(timeFormatMs, e.UpdatedAt)
 
 	if err != nil {
-		return nil, err
+		return nil, errors.WithStack(err)
 	}
 
 	event := &Event{

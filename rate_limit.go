@@ -2,6 +2,7 @@ package doorkeeper
 
 import (
 	"encoding/json"
+	"github.com/pkg/errors"
 	"time"
 )
 
@@ -29,7 +30,7 @@ func newRawRateLimitFromJSON(jsonText string) (*rawRateLimit, error) {
 	err := json.Unmarshal(jsonBlob, &data)
 
 	if err != nil {
-		return nil, err
+		return nil, errors.WithStack(err)
 	}
 
 	return &data, nil
@@ -39,7 +40,7 @@ func (r *rawRateLimit) toRateLimit() (*RateLimit, error) {
 	until, err := time.Parse(timeFormat, r.Until)
 
 	if err != nil {
-		return nil, err
+		return nil, errors.WithStack(err)
 	}
 
 	return &RateLimit{

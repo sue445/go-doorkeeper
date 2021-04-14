@@ -2,8 +2,8 @@ package doorkeeper
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
+	"github.com/pkg/errors"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -44,14 +44,14 @@ func (c *Client) getEvents(path string, params *GetEventsParams) ([]*Event, *Rat
 	body, rateLimit, err := c.get(path, params.toValues())
 
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, errors.WithStack(err)
 	}
 
 	var res []rawGetEventResponse
 	err = json.Unmarshal(body, &res)
 
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, errors.WithStack(err)
 	}
 
 	events := []*Event{}
@@ -60,7 +60,7 @@ func (c *Client) getEvents(path string, params *GetEventsParams) ([]*Event, *Rat
 		event, err := e.Event.toEvent()
 
 		if err != nil {
-			return nil, nil, err
+			return nil, nil, errors.WithStack(err)
 		}
 
 		events = append(events, event)
@@ -80,20 +80,20 @@ func (c *Client) GetEvent(eventID int, options ...OptionFunc) (*Event, *RateLimi
 	body, rateLimit, err := c.get(fmt.Sprintf("/events/%d", eventID), values)
 
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, errors.WithStack(err)
 	}
 
 	var res rawGetEventResponse
 	err = json.Unmarshal(body, &res)
 
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, errors.WithStack(err)
 	}
 
 	event, err := res.Event.toEvent()
 
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, errors.WithStack(err)
 	}
 
 	return event, rateLimit, nil
@@ -110,14 +110,14 @@ func (c *Client) GetGroup(groupName string, options ...OptionFunc) (*Group, *Rat
 	body, rateLimit, err := c.get("/groups/"+groupName, values)
 
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, errors.WithStack(err)
 	}
 
 	var res rawGetGroupResponse
 	err = json.Unmarshal(body, &res)
 
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, errors.WithStack(err)
 	}
 
 	return &res.Group, rateLimit, nil
@@ -127,7 +127,7 @@ func (c *Client) get(path string, values url.Values) ([]byte, *RateLimit, error)
 	url, err := c.buildURL(path, values)
 
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, errors.WithStack(err)
 	}
 
 	req, err := http.NewRequest("GET", url, nil)
@@ -142,7 +142,7 @@ func (c *Client) get(path string, values url.Values) ([]byte, *RateLimit, error)
 	resp, err := c.client.Do(req)
 
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, errors.WithStack(err)
 	}
 
 	defer resp.Body.Close()
@@ -154,7 +154,7 @@ func (c *Client) get(path string, values url.Values) ([]byte, *RateLimit, error)
 	body, err := ioutil.ReadAll(resp.Body)
 
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, errors.WithStack(err)
 	}
 
 	xRateLimit := resp.Header.Get("X-Ratelimit")
@@ -167,13 +167,13 @@ func (c *Client) get(path string, values url.Values) ([]byte, *RateLimit, error)
 	rawRateLimit, err := newRawRateLimitFromJSON(xRateLimit)
 
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, errors.WithStack(err)
 	}
 
 	rateLimit, err := rawRateLimit.toRateLimit()
 
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, errors.WithStack(err)
 	}
 
 	return body, rateLimit, nil
