@@ -101,7 +101,7 @@ jobs:
         if: "! success()"
         continue-on-error: true
         with:
-          job_name: ${{ format('*build* ({0})', matrix.golang) }}
+          job_name: "*lint*"
           type: ${{ job.status }}
           icon_emoji: ":octocat:"
           url: ${{ secrets.SLACK_WEBHOOK }}
