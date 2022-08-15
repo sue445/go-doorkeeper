@@ -29,6 +29,7 @@ jobs:
           - "1.16"
           - "1.17"
           - "1.18"
+          - "1.19"
 
     steps:
       - name: Check out code into the Go module directory
@@ -82,7 +83,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v3
         with:
-          go-version: "1.18"
+          go-version: "1.19"
           cache: true
         id: go
 
