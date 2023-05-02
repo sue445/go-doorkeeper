@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/pkg/errors"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 )
@@ -151,7 +151,7 @@ func (c *Client) get(path string, values url.Values) ([]byte, *RateLimit, error)
 		return nil, nil, errors.New(resp.Status)
 	}
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 
 	if err != nil {
 		return nil, nil, errors.WithStack(err)
