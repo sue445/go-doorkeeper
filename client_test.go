@@ -3,16 +3,16 @@ package doorkeeper
 import (
 	"github.com/jarcoal/httpmock"
 	"github.com/stretchr/testify/assert"
-	"io/ioutil"
 	"net/http"
 	"net/url"
+	"os"
 	"path/filepath"
 	"testing"
 	"time"
 )
 
 func readTestData(filename string) string {
-	buf, err := ioutil.ReadFile(filename)
+	buf, err := os.ReadFile(filename)
 
 	if err != nil {
 		panic(err)
