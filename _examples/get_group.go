@@ -18,6 +18,11 @@ func main() {
 	}
 
 	client := doorkeeper.NewClient(accessToken)
+
+	if os.Getenv("DOORKEEPER_API_ENDPOINT") != "" {
+		client.APIEndpoint = os.Getenv("DOORKEEPER_API_ENDPOINT")
+	}
+
 	group, rateLimit, err := client.GetGroup(groupName)
 
 	if err != nil {

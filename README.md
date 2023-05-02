@@ -25,6 +25,9 @@ func main() {
 
 	client := doorkeeper.NewClient(accessToken)
 
+	// Change API endpoint
+	// client.APIEndpoint = "https://api.doorkeeperhq.com"
+
 	// List all featured events
 	events, rateLimit, err := client.GetEvents(&doorkeeper.GetEventsParams{})
 	// more options

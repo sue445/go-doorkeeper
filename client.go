@@ -10,10 +10,10 @@ import (
 )
 
 const (
-	baseURL      = "https://api.doorkeeper.jp"
-	timeFormat   = "2006-01-02T15:04:05Z"
-	timeFormatMs = "2006-01-02T15:04:05.999Z"
-	dateFormat   = "2006-01-02"
+	defaultAPIEndpoint = "https://api.doorkeeper.jp"
+	timeFormat         = "2006-01-02T15:04:05Z"
+	timeFormatMs       = "2006-01-02T15:04:05.999Z"
+	dateFormat         = "2006-01-02"
 )
 
 // A Client manages communication with the Doorkeeper API
@@ -21,13 +21,14 @@ type Client struct {
 	accessToken string
 	client      *http.Client
 	UserAgent   string
+	APIEndpoint string
 }
 
 // NewClient returns a new API Client instance
 func NewClient(accessToken string) *Client {
 	userAgent := fmt.Sprintf("go-doorkeeper/%s (+https://github.com/sue445/go-doorkeeper)", Version)
 
-	return &Client{accessToken: accessToken, UserAgent: userAgent, client: &http.Client{}}
+	return &Client{accessToken: accessToken, UserAgent: userAgent, client: &http.Client{}, APIEndpoint: defaultAPIEndpoint}
 }
 
 // GetEvents returns events
@@ -180,7 +181,7 @@ func (c *Client) get(path string, values url.Values) ([]byte, *RateLimit, error)
 }
 
 func (c *Client) buildURL(path string, values url.Values) (string, error) {
-	u, err := url.Parse(baseURL + path)
+	u, err := url.Parse(c.APIEndpoint + path)
 
 	if err != nil {
 		return "", err

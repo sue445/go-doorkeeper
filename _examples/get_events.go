@@ -13,6 +13,11 @@ func main() {
 	}
 
 	client := doorkeeper.NewClient(accessToken)
+
+	if os.Getenv("DOORKEEPER_API_ENDPOINT") != "" {
+		client.APIEndpoint = os.Getenv("DOORKEEPER_API_ENDPOINT")
+	}
+
 	events, rateLimit, err := client.GetEvents(&doorkeeper.GetEventsParams{Sort: doorkeeper.SortByPublishedAt()})
 
 	if err != nil {
