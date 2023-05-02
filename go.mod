@@ -1,6 +1,6 @@
 module github.com/sue445/go-doorkeeper
 
-go 1.15
+go 1.16
 
 require (
 	github.com/jarcoal/httpmock v1.3.0
