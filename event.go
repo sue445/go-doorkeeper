@@ -1,7 +1,7 @@
 package doorkeeper
 
 import (
-	"github.com/pkg/errors"
+	"github.com/cockroachdb/errors"
 	"time"
 )
 
