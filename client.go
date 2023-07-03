@@ -3,7 +3,7 @@ package doorkeeper
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/pkg/errors"
+	"github.com/cockroachdb/errors"
 	"io"
 	"net/http"
 	"net/url"
