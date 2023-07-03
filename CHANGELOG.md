@@ -1,5 +1,13 @@
 ## Unreleased
-[full changelog](http://github.com/sue445/go-doorkeeper/compare/v0.1.8...master)
+[full changelog](http://github.com/sue445/go-doorkeeper/compare/v0.1.9...master)
+
+## v0.1.9
+[full changelog](http://github.com/sue445/go-doorkeeper/compare/v0.1.8...v0.1.9)
+
+* Drop Go 1.16
+  * https://github.com/sue445/go-doorkeeper/pull/77
+* Migrate to github.com/cockroachdb/errors
+  * https://github.com/sue445/go-doorkeeper/pull/80
 
 ## v0.1.8
 [full changelog](http://github.com/sue445/go-doorkeeper/compare/v0.1.7...v0.1.8)
