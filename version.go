@@ -2,5 +2,5 @@ package doorkeeper
 
 const (
 	// Version represents go-doorkeeper version
-	Version = "v0.1.8"
+	Version = "v0.1.9"
 )
