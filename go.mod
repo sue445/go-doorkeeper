@@ -3,7 +3,7 @@ module github.com/sue445/go-doorkeeper
 go 1.17
 
 require (
-	github.com/cockroachdb/errors v1.11.0
+	github.com/cockroachdb/errors v1.11.1
 	github.com/jarcoal/httpmock v1.3.1
 	github.com/stretchr/testify v1.8.4
 )
