@@ -1,5 +1,12 @@
 ## Unreleased
-[full changelog](http://github.com/sue445/go-doorkeeper/compare/v0.1.9...master)
+[full changelog](http://github.com/sue445/go-doorkeeper/compare/v0.1.10...master)
+
+## v0.1.10
+[full changelog](http://github.com/sue445/go-doorkeeper/compare/v0.1.9...v0.1.10)
+
+* Drop Go 1.17
+  * https://github.com/sue445/go-doorkeeper/pull/91
+* Update dependencies
 
 ## v0.1.9
 [full changelog](http://github.com/sue445/go-doorkeeper/compare/v0.1.8...v0.1.9)
