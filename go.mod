@@ -1,6 +1,6 @@
 module github.com/sue445/go-doorkeeper
 
-go 1.17
+go 1.18
 
 require (
 	github.com/cockroachdb/errors v1.11.3
