@@ -1,5 +1,11 @@
 ## Unreleased
-[full changelog](http://github.com/sue445/go-doorkeeper/compare/v0.1.10...master)
+[full changelog](http://github.com/sue445/go-doorkeeper/compare/v0.1.11...master)
+
+## [v0.1.11](https://github.com/sue445/go-doorkeeper/releases/tag/v0.1.11)
+[full changelog](http://github.com/sue445/go-doorkeeper/compare/v0.1.10...v0.1.11)
+
+* Add golangci-lint
+  * https://github.com/sue445/go-doorkeeper/pull/92
 
 ## v0.1.10
 [full changelog](http://github.com/sue445/go-doorkeeper/compare/v0.1.9...v0.1.10)
