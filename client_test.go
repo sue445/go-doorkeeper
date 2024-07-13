@@ -35,7 +35,7 @@ func TestClient_GetEvents(t *testing.T) {
 	defer httpmock.DeactivateAndReset()
 
 	httpmock.RegisterResponder("GET", "https://api.doorkeeper.jp/events?page=1",
-		func(req *http.Request) (*http.Response, error) {
+		func(_ *http.Request) (*http.Response, error) {
 			resp := httpmock.NewStringResponse(200, readTestData(filepath.Join("testdata", "events.json")))
 			resp.Header.Set("X-Ratelimit", `{"name":"authenticated API","period":300,"limit":300,"remaining":299,"until":"2019-07-29T15:15:00Z"}`)
 			return resp, nil
@@ -83,7 +83,7 @@ func TestClient_GetGroupEvents(t *testing.T) {
 	defer httpmock.DeactivateAndReset()
 
 	httpmock.RegisterResponder("GET", "https://api.doorkeeper.jp/groups/trbmeetup/events?page=1",
-		func(req *http.Request) (*http.Response, error) {
+		func(_ *http.Request) (*http.Response, error) {
 			resp := httpmock.NewStringResponse(200, readTestData(filepath.Join("testdata", "events.json")))
 			resp.Header.Set("X-Ratelimit", `{"name":"authenticated API","period":300,"limit":300,"remaining":299,"until":"2019-07-29T15:15:00Z"}`)
 			return resp, nil
@@ -131,7 +131,7 @@ func TestClient_GetEvent(t *testing.T) {
 	defer httpmock.DeactivateAndReset()
 
 	httpmock.RegisterResponder("GET", "https://api.doorkeeper.jp/events/28319",
-		func(req *http.Request) (*http.Response, error) {
+		func(_ *http.Request) (*http.Response, error) {
 			resp := httpmock.NewStringResponse(200, readTestData(filepath.Join("testdata", "event-ja.json")))
 			resp.Header.Set("X-Ratelimit", `{"name":"authenticated API","period":300,"limit":300,"remaining":299,"until":"2019-07-29T15:15:00Z"}`)
 			return resp, nil
@@ -178,7 +178,7 @@ func TestClient_GetEvent_WithLocale(t *testing.T) {
 	defer httpmock.DeactivateAndReset()
 
 	httpmock.RegisterResponder("GET", "https://api.doorkeeper.jp/events/28319?locale=en",
-		func(req *http.Request) (*http.Response, error) {
+		func(_ *http.Request) (*http.Response, error) {
 			resp := httpmock.NewStringResponse(200, readTestData(filepath.Join("testdata", "event-en.json")))
 			resp.Header.Set("X-Ratelimit", `{"name":"authenticated API","period":300,"limit":300,"remaining":299,"until":"2019-07-29T15:15:00Z"}`)
 			return resp, nil
@@ -225,7 +225,7 @@ func TestClient_GetGroup(t *testing.T) {
 	defer httpmock.DeactivateAndReset()
 
 	httpmock.RegisterResponder("GET", "https://api.doorkeeper.jp/groups/trbmeetup",
-		func(req *http.Request) (*http.Response, error) {
+		func(_ *http.Request) (*http.Response, error) {
 			resp := httpmock.NewStringResponse(200, readTestData(filepath.Join("testdata", "group-ja.json")))
 			resp.Header.Set("X-Ratelimit", `{"name":"authenticated API","period":300,"limit":300,"remaining":299,"until":"2019-07-29T15:15:00Z"}`)
 			return resp, nil
@@ -263,7 +263,7 @@ func TestClient_GetGroup_WithLocale(t *testing.T) {
 	defer httpmock.DeactivateAndReset()
 
 	httpmock.RegisterResponder("GET", "https://api.doorkeeper.jp/groups/trbmeetup?locale=en",
-		func(req *http.Request) (*http.Response, error) {
+		func(_ *http.Request) (*http.Response, error) {
 			resp := httpmock.NewStringResponse(200, readTestData(filepath.Join("testdata", "group-en.json")))
 			resp.Header.Set("X-Ratelimit", `{"name":"authenticated API","period":300,"limit":300,"remaining":299,"until":"2019-07-29T15:15:00Z"}`)
 			return resp, nil
@@ -301,7 +301,7 @@ func TestClient_GetGroup_WithoutRateLimitHeader(t *testing.T) {
 	defer httpmock.DeactivateAndReset()
 
 	httpmock.RegisterResponder("GET", "https://api.doorkeeper.jp/groups/trbmeetup?locale=en",
-		func(req *http.Request) (*http.Response, error) {
+		func(_ *http.Request) (*http.Response, error) {
 			resp := httpmock.NewStringResponse(200, readTestData(filepath.Join("testdata", "group-en.json")))
 			return resp, nil
 		},
@@ -332,7 +332,7 @@ func TestClient_GetGroup_NotFound(t *testing.T) {
 	defer httpmock.DeactivateAndReset()
 
 	httpmock.RegisterResponder("GET", "https://api.doorkeeper.jp/groups/not-found",
-		func(req *http.Request) (*http.Response, error) {
+		func(_ *http.Request) (*http.Response, error) {
 			resp := httpmock.NewStringResponse(404, "")
 			resp.Header.Set("X-Ratelimit", `{"name":"authenticated API","period":300,"limit":300,"remaining":299,"until":"2019-07-29T15:15:00Z"}`)
 			return resp, nil
