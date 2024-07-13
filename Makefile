@@ -17,18 +17,6 @@ testrace:
 fmt:
 	go fmt ./...
 
-.PHONY: fmtci
-fmtci:
-	! gofmt -d . | grep '^'
-
-.PHONY: lint
-lint:
-	golint -set_exit_status
-
-.PHONY: vet
-vet:
-	go vet
-
 .PHONY: tag
 tag:
 	git tag -a $(VERSION) -m "Release $(VERSION)"

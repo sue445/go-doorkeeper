@@ -3,6 +3,7 @@ package doorkeeper
 import (
 	"github.com/jarcoal/httpmock"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"net/http"
 	"net/url"
 	"os"
@@ -34,7 +35,7 @@ func TestClient_GetEvents(t *testing.T) {
 	defer httpmock.DeactivateAndReset()
 
 	httpmock.RegisterResponder("GET", "https://api.doorkeeper.jp/events?page=1",
-		func(req *http.Request) (*http.Response, error) {
+		func(_ *http.Request) (*http.Response, error) {
 			resp := httpmock.NewStringResponse(200, readTestData(filepath.Join("testdata", "events.json")))
 			resp.Header.Set("X-Ratelimit", `{"name":"authenticated API","period":300,"limit":300,"remaining":299,"until":"2019-07-29T15:15:00Z"}`)
 			return resp, nil
@@ -44,7 +45,7 @@ func TestClient_GetEvents(t *testing.T) {
 	c := NewClient("DOORKEEPER_ACCESS_TOKEN")
 	events, rateLimit, err := c.GetEvents(&GetEventsParams{Page: 1})
 
-	assert.NoError(t, err)
+	require.NoError(t, err)
 
 	wantEvent := &Event{
 		Title:        "900K records per second with Ruby, Java, and JRuby",
@@ -64,7 +65,7 @@ func TestClient_GetEvents(t *testing.T) {
 		Waitlisted:   0,
 		TicketLimit:  50,
 	}
-	assert.Equal(t, 1, len(events))
+	assert.Len(t, events, 1)
 	assert.Equal(t, wantEvent, events[0])
 
 	wantRateLimit := &RateLimit{
@@ -82,7 +83,7 @@ func TestClient_GetGroupEvents(t *testing.T) {
 	defer httpmock.DeactivateAndReset()
 
 	httpmock.RegisterResponder("GET", "https://api.doorkeeper.jp/groups/trbmeetup/events?page=1",
-		func(req *http.Request) (*http.Response, error) {
+		func(_ *http.Request) (*http.Response, error) {
 			resp := httpmock.NewStringResponse(200, readTestData(filepath.Join("testdata", "events.json")))
 			resp.Header.Set("X-Ratelimit", `{"name":"authenticated API","period":300,"limit":300,"remaining":299,"until":"2019-07-29T15:15:00Z"}`)
 			return resp, nil
@@ -92,7 +93,7 @@ func TestClient_GetGroupEvents(t *testing.T) {
 	c := NewClient("DOORKEEPER_ACCESS_TOKEN")
 	events, rateLimit, err := c.GetGroupEvents("trbmeetup", &GetEventsParams{Page: 1})
 
-	assert.NoError(t, err)
+	require.NoError(t, err)
 
 	wantEvent := &Event{
 		Title:        "900K records per second with Ruby, Java, and JRuby",
@@ -112,7 +113,7 @@ func TestClient_GetGroupEvents(t *testing.T) {
 		Waitlisted:   0,
 		TicketLimit:  50,
 	}
-	assert.Equal(t, 1, len(events))
+	assert.Len(t, events, 1)
 	assert.Equal(t, wantEvent, events[0])
 
 	wantRateLimit := &RateLimit{
@@ -130,7 +131,7 @@ func TestClient_GetEvent(t *testing.T) {
 	defer httpmock.DeactivateAndReset()
 
 	httpmock.RegisterResponder("GET", "https://api.doorkeeper.jp/events/28319",
-		func(req *http.Request) (*http.Response, error) {
+		func(_ *http.Request) (*http.Response, error) {
 			resp := httpmock.NewStringResponse(200, readTestData(filepath.Join("testdata", "event-ja.json")))
 			resp.Header.Set("X-Ratelimit", `{"name":"authenticated API","period":300,"limit":300,"remaining":299,"until":"2019-07-29T15:15:00Z"}`)
 			return resp, nil
@@ -140,7 +141,7 @@ func TestClient_GetEvent(t *testing.T) {
 	c := NewClient("DOORKEEPER_ACCESS_TOKEN")
 	event, rateLimit, err := c.GetEvent(28319)
 
-	assert.NoError(t, err)
+	require.NoError(t, err)
 
 	wantEvent := &Event{
 		Title:        "900K records per second with Ruby, Java, and JRuby",
@@ -177,7 +178,7 @@ func TestClient_GetEvent_WithLocale(t *testing.T) {
 	defer httpmock.DeactivateAndReset()
 
 	httpmock.RegisterResponder("GET", "https://api.doorkeeper.jp/events/28319?locale=en",
-		func(req *http.Request) (*http.Response, error) {
+		func(_ *http.Request) (*http.Response, error) {
 			resp := httpmock.NewStringResponse(200, readTestData(filepath.Join("testdata", "event-en.json")))
 			resp.Header.Set("X-Ratelimit", `{"name":"authenticated API","period":300,"limit":300,"remaining":299,"until":"2019-07-29T15:15:00Z"}`)
 			return resp, nil
@@ -187,7 +188,7 @@ func TestClient_GetEvent_WithLocale(t *testing.T) {
 	c := NewClient("DOORKEEPER_ACCESS_TOKEN")
 	event, rateLimit, err := c.GetEvent(28319, WithLocale("en"))
 
-	assert.NoError(t, err)
+	require.NoError(t, err)
 
 	wantEvent := &Event{
 		Title:        "900K records per second with Ruby, Java, and JRuby",
@@ -224,7 +225,7 @@ func TestClient_GetGroup(t *testing.T) {
 	defer httpmock.DeactivateAndReset()
 
 	httpmock.RegisterResponder("GET", "https://api.doorkeeper.jp/groups/trbmeetup",
-		func(req *http.Request) (*http.Response, error) {
+		func(_ *http.Request) (*http.Response, error) {
 			resp := httpmock.NewStringResponse(200, readTestData(filepath.Join("testdata", "group-ja.json")))
 			resp.Header.Set("X-Ratelimit", `{"name":"authenticated API","period":300,"limit":300,"remaining":299,"until":"2019-07-29T15:15:00Z"}`)
 			return resp, nil
@@ -234,7 +235,7 @@ func TestClient_GetGroup(t *testing.T) {
 	c := NewClient("DOORKEEPER_ACCESS_TOKEN")
 	group, rateLimit, err := c.GetGroup("trbmeetup")
 
-	assert.NoError(t, err)
+	require.NoError(t, err)
 
 	wantGroup := &Group{
 		ID:           24,
@@ -262,7 +263,7 @@ func TestClient_GetGroup_WithLocale(t *testing.T) {
 	defer httpmock.DeactivateAndReset()
 
 	httpmock.RegisterResponder("GET", "https://api.doorkeeper.jp/groups/trbmeetup?locale=en",
-		func(req *http.Request) (*http.Response, error) {
+		func(_ *http.Request) (*http.Response, error) {
 			resp := httpmock.NewStringResponse(200, readTestData(filepath.Join("testdata", "group-en.json")))
 			resp.Header.Set("X-Ratelimit", `{"name":"authenticated API","period":300,"limit":300,"remaining":299,"until":"2019-07-29T15:15:00Z"}`)
 			return resp, nil
@@ -272,7 +273,7 @@ func TestClient_GetGroup_WithLocale(t *testing.T) {
 	c := NewClient("DOORKEEPER_ACCESS_TOKEN")
 	group, rateLimit, err := c.GetGroup("trbmeetup", WithLocale("en"))
 
-	assert.NoError(t, err)
+	require.NoError(t, err)
 
 	wantGroup := &Group{
 		ID:           24,
@@ -300,7 +301,7 @@ func TestClient_GetGroup_WithoutRateLimitHeader(t *testing.T) {
 	defer httpmock.DeactivateAndReset()
 
 	httpmock.RegisterResponder("GET", "https://api.doorkeeper.jp/groups/trbmeetup?locale=en",
-		func(req *http.Request) (*http.Response, error) {
+		func(_ *http.Request) (*http.Response, error) {
 			resp := httpmock.NewStringResponse(200, readTestData(filepath.Join("testdata", "group-en.json")))
 			return resp, nil
 		},
@@ -309,7 +310,7 @@ func TestClient_GetGroup_WithoutRateLimitHeader(t *testing.T) {
 	c := NewClient("DOORKEEPER_ACCESS_TOKEN")
 	group, rateLimit, err := c.GetGroup("trbmeetup", WithLocale("en"))
 
-	assert.NoError(t, err)
+	require.NoError(t, err)
 
 	wantGroup := &Group{
 		ID:           24,
@@ -331,7 +332,7 @@ func TestClient_GetGroup_NotFound(t *testing.T) {
 	defer httpmock.DeactivateAndReset()
 
 	httpmock.RegisterResponder("GET", "https://api.doorkeeper.jp/groups/not-found",
-		func(req *http.Request) (*http.Response, error) {
+		func(_ *http.Request) (*http.Response, error) {
 			resp := httpmock.NewStringResponse(404, "")
 			resp.Header.Set("X-Ratelimit", `{"name":"authenticated API","period":300,"limit":300,"remaining":299,"until":"2019-07-29T15:15:00Z"}`)
 			return resp, nil
@@ -341,9 +342,10 @@ func TestClient_GetGroup_NotFound(t *testing.T) {
 	c := NewClient("DOORKEEPER_ACCESS_TOKEN")
 	group, rateLimit, err := c.GetGroup("not-found")
 
-	assert.EqualError(t, err, "404")
-	assert.Nil(t, group)
-	assert.Nil(t, rateLimit)
+	if assert.EqualError(t, err, "404") {
+		assert.Nil(t, group)
+		assert.Nil(t, rateLimit)
+	}
 }
 
 func TestClient_buildURL(t *testing.T) {
@@ -382,8 +384,10 @@ func TestClient_buildURL(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := c.buildURL(tt.args.path, tt.args.values)
-			assert.NoError(t, err)
-			assert.Equal(t, tt.want, got)
+
+			if assert.NoError(t, err) {
+				assert.Equal(t, tt.want, got)
+			}
 		})
 	}
 }

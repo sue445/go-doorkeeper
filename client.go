@@ -133,7 +133,7 @@ func (c *Client) get(path string, values url.Values) ([]byte, *RateLimit, error)
 	req, err := http.NewRequest("GET", url, nil)
 
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, errors.WithStack(err)
 	}
 
 	req.Header.Add("Authorization", "Bearer "+c.accessToken)
@@ -183,7 +183,7 @@ func (c *Client) buildURL(path string, values url.Values) (string, error) {
 	u, err := url.Parse(baseURL + path)
 
 	if err != nil {
-		return "", err
+		return "", errors.WithStack(err)
 	}
 
 	u.RawQuery = values.Encode()
