@@ -132,8 +132,9 @@ func Test_rawEvent_toEvent(t *testing.T) {
 			}
 			got, err := e.toEvent()
 
-			assert.NoError(t, err)
-			assert.Equal(t, tt.want, got)
+			if assert.NoError(t, err) {
+				assert.Equal(t, tt.want, got)
+			}
 		})
 	}
 }

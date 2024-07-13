@@ -33,8 +33,9 @@ func Test_newRawRateLimitFromJson(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := newRawRateLimitFromJSON(tt.args.jsonText)
 
-			assert.NoError(t, err)
-			assert.Equal(t, tt.want, got)
+			if assert.NoError(t, err) {
+				assert.Equal(t, tt.want, got)
+			}
 		})
 	}
 }
@@ -81,8 +82,10 @@ func Test_rawRateLimit_toRateLimit(t *testing.T) {
 				Until:     tt.fields.until,
 			}
 			got, err := r.toRateLimit()
-			assert.NoError(t, err)
-			assert.Equal(t, tt.want, got)
+
+			if assert.NoError(t, err) {
+				assert.Equal(t, tt.want, got)
+			}
 		})
 	}
 }
