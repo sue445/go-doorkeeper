@@ -342,7 +342,7 @@ func TestClient_GetGroup_NotFound(t *testing.T) {
 	c := NewClient("DOORKEEPER_ACCESS_TOKEN")
 	group, rateLimit, err := c.GetGroup("not-found")
 
-	if assert.EqualError(t, err, "404") {
+	if assert.EqualError(t, err, "404 Not Found") {
 		assert.Nil(t, group)
 		assert.Nil(t, rateLimit)
 	}
