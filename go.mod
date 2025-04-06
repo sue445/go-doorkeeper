@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/cockroachdb/errors v1.11.3
-	github.com/jarcoal/httpmock v1.3.1
+	github.com/jarcoal/httpmock v1.4.0
 	github.com/stretchr/testify v1.10.0
 )
 
