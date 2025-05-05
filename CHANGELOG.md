@@ -1,5 +1,12 @@
 ## Unreleased
-[full changelog](http://github.com/sue445/go-doorkeeper/compare/v0.1.11...master)
+[full changelog](http://github.com/sue445/go-doorkeeper/compare/v0.1.12...master)
+
+## [v0.1.12](https://github.com/sue445/go-doorkeeper/releases/tag/v0.1.12)
+[full changelog](http://github.com/sue445/go-doorkeeper/compare/v0.1.11...v0.1.12)
+
+* Requires Go 1.23+
+  * https://github.com/sue445/go-doorkeeper/pull/103
+* Update dependencies
 
 ## [v0.1.11](https://github.com/sue445/go-doorkeeper/releases/tag/v0.1.11)
 [full changelog](http://github.com/sue445/go-doorkeeper/compare/v0.1.10...v0.1.11)
