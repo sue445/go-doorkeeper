@@ -31,8 +31,7 @@ func tp(t time.Time) *time.Time {
 }
 
 func TestClient_GetEvents(t *testing.T) {
-	httpmock.Activate()
-	defer httpmock.DeactivateAndReset()
+	httpmock.Activate(t)
 
 	httpmock.RegisterResponder("GET", "https://api.doorkeeper.jp/events?page=1",
 		func(_ *http.Request) (*http.Response, error) {
@@ -79,8 +78,7 @@ func TestClient_GetEvents(t *testing.T) {
 }
 
 func TestClient_GetGroupEvents(t *testing.T) {
-	httpmock.Activate()
-	defer httpmock.DeactivateAndReset()
+	httpmock.Activate(t)
 
 	httpmock.RegisterResponder("GET", "https://api.doorkeeper.jp/groups/trbmeetup/events?page=1",
 		func(_ *http.Request) (*http.Response, error) {
@@ -127,8 +125,7 @@ func TestClient_GetGroupEvents(t *testing.T) {
 }
 
 func TestClient_GetEvent(t *testing.T) {
-	httpmock.Activate()
-	defer httpmock.DeactivateAndReset()
+	httpmock.Activate(t)
 
 	httpmock.RegisterResponder("GET", "https://api.doorkeeper.jp/events/28319",
 		func(_ *http.Request) (*http.Response, error) {
@@ -174,8 +171,7 @@ func TestClient_GetEvent(t *testing.T) {
 }
 
 func TestClient_GetEvent_WithLocale(t *testing.T) {
-	httpmock.Activate()
-	defer httpmock.DeactivateAndReset()
+	httpmock.Activate(t)
 
 	httpmock.RegisterResponder("GET", "https://api.doorkeeper.jp/events/28319?locale=en",
 		func(_ *http.Request) (*http.Response, error) {
@@ -221,8 +217,7 @@ func TestClient_GetEvent_WithLocale(t *testing.T) {
 }
 
 func TestClient_GetGroup(t *testing.T) {
-	httpmock.Activate()
-	defer httpmock.DeactivateAndReset()
+	httpmock.Activate(t)
 
 	httpmock.RegisterResponder("GET", "https://api.doorkeeper.jp/groups/trbmeetup",
 		func(_ *http.Request) (*http.Response, error) {
@@ -259,8 +254,7 @@ func TestClient_GetGroup(t *testing.T) {
 }
 
 func TestClient_GetGroup_WithLocale(t *testing.T) {
-	httpmock.Activate()
-	defer httpmock.DeactivateAndReset()
+	httpmock.Activate(t)
 
 	httpmock.RegisterResponder("GET", "https://api.doorkeeper.jp/groups/trbmeetup?locale=en",
 		func(_ *http.Request) (*http.Response, error) {
@@ -297,8 +291,7 @@ func TestClient_GetGroup_WithLocale(t *testing.T) {
 }
 
 func TestClient_GetGroup_WithoutRateLimitHeader(t *testing.T) {
-	httpmock.Activate()
-	defer httpmock.DeactivateAndReset()
+	httpmock.Activate(t)
 
 	httpmock.RegisterResponder("GET", "https://api.doorkeeper.jp/groups/trbmeetup?locale=en",
 		func(_ *http.Request) (*http.Response, error) {
@@ -328,8 +321,7 @@ func TestClient_GetGroup_WithoutRateLimitHeader(t *testing.T) {
 }
 
 func TestClient_GetGroup_NotFound(t *testing.T) {
-	httpmock.Activate()
-	defer httpmock.DeactivateAndReset()
+	httpmock.Activate(t)
 
 	httpmock.RegisterResponder("GET", "https://api.doorkeeper.jp/groups/not-found",
 		func(_ *http.Request) (*http.Response, error) {
