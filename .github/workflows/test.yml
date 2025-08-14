@@ -14,7 +14,7 @@ env:
   TEST_ARGS: -coverprofile coverage.out -covermode atomic
 
   # c.f. https://github.com/golangci/golangci-lint/blob/main/CHANGELOG.md
-  GOLANGCI_LINT_VERSION: v2.1
+  GOLANGCI_LINT_VERSION: v2.4
 
 jobs:
   test:
@@ -29,6 +29,7 @@ jobs:
         golang:
           - "1.23"
           - "1.24"
+          - "1.25"
 
     steps:
       - name: Check out code into the Go module directory
@@ -52,6 +53,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           file: coverage.out
           format: golang
+        continue-on-error: true
 
       - name: Slack Notification (not success)
         uses: act10ns/slack@v2
