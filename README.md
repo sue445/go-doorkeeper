@@ -3,7 +3,7 @@
 
 [![Latest Version](https://img.shields.io/github/v/tag/sue445/go-doorkeeper)](https://github.com/sue445/go-doorkeeper/tags)
 [![test](https://github.com/sue445/go-doorkeeper/actions/workflows/test.yml/badge.svg)](https://github.com/sue445/go-doorkeeper/actions/workflows/test.yml)
-[![Maintainability](https://api.codeclimate.com/v1/badges/fcf6115e2d1c43780cb8/maintainability)](https://codeclimate.com/github/sue445/go-doorkeeper/maintainability)
+[![Maintainability](https://qlty.sh/gh/sue445/projects/go-doorkeeper/maintainability.svg)](https://qlty.sh/gh/sue445/projects/go-doorkeeper)
 [![Coverage Status](https://coveralls.io/repos/github/sue445/go-doorkeeper/badge.svg)](https://coveralls.io/github/sue445/go-doorkeeper)
 [![GoDoc](https://godoc.org/github.com/sue445/go-doorkeeper?status.svg)](https://godoc.org/github.com/sue445/go-doorkeeper)
 [![Go Report Card](https://goreportcard.com/badge/github.com/sue445/go-doorkeeper)](https://goreportcard.com/report/github.com/sue445/go-doorkeeper)
