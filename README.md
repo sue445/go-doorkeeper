@@ -6,7 +6,6 @@
 [![Maintainability](https://qlty.sh/gh/sue445/projects/go-doorkeeper/maintainability.svg)](https://qlty.sh/gh/sue445/projects/go-doorkeeper)
 [![Coverage Status](https://coveralls.io/repos/github/sue445/go-doorkeeper/badge.svg)](https://coveralls.io/github/sue445/go-doorkeeper)
 [![GoDoc](https://godoc.org/github.com/sue445/go-doorkeeper?status.svg)](https://godoc.org/github.com/sue445/go-doorkeeper)
-[![Go Report Card](https://goreportcard.com/badge/github.com/sue445/go-doorkeeper)](https://goreportcard.com/report/github.com/sue445/go-doorkeeper)
 
 ## Example
 ```go
